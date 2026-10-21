@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Boutique — Huize Shop</title>
+  <meta name="description" content="Parcourez tout le catalogue de Huize Shop : recherchez, triez et filtrez par catégorie. Prix en FCFA, commande via WhatsApp.">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="catalogue.css">
+  <link rel="stylesheet" href="boutique.css">
+</head>
+
+<body>
+  <a class="skip" href="#contenu">Aller au contenu</a>
+
+  <!-- ============ EN-TÊTE (identique à index.html) ============ -->
+  <header class="site-header">
+    <div class="wrap">
+      <a class="logo" href="index.html" aria-label="Huize Shop, retour à l'accueil">Huize Shop</a>
+      <nav class="header-actions" aria-label="Navigation principale">
+        <a class="btn btn--primary" href="boutique.html" aria-current="page">Boutique</a>
+        <button type="button" class="icon-btn icon-btn--wa" id="header-whatsapp" data-action="contact-whatsapp"
+                aria-label="Contacter la boutique sur WhatsApp" data-tooltip="WhatsApp">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.04 2a9.9 9.9 0 0 0-8.5 14.95L2 22l5.2-1.36A9.9 9.9 0 1 0 12.04 2Zm0 1.8a8.1 8.1 0 0 1 0 16.2 8.1 8.1 0 0 1-4.13-1.13l-.3-.18-3.08.8.82-3-.2-.31A8.1 8.1 0 0 1 12.04 3.8Zm-3.5 4.1c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5s1.07 2.9 1.22 3.1c.15.2 2.1 3.2 5.08 4.48 2.5 1.07 3 .86 3.54.8.54-.05 1.74-.71 1.98-1.4.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35-.3-.15-1.74-.86-2.01-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57Z"/></svg>
+        </button>
+        <button type="button" class="icon-btn" id="header-cart" data-action="open-cart"
+                aria-label="Voir le panier" data-tooltip="Panier">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 4h2.2l2.1 10.2a1.5 1.5 0 0 0 1.47 1.2h8.2a1.5 1.5 0 0 0 1.46-1.14L20 8H6.2"/><circle cx="9.5" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/></svg>
+          <span class="cart-count" data-cart-count hidden>0</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenu">
+    <!-- ============ INTRODUCTION ============ -->
+    <section class="intro" aria-labelledby="intro-title">
+      <div class="wrap">
+        <h1 id="intro-title">Bienvenue dans la boutique Huize Shop !</h1>
+        <p>Découvrez notre sélection de produits et trouvez ceux qui vous correspondent. Parcourez les catégories, recherchez vos articles préférés et profitez d'une expérience d'achat simple et agréable.</p>
+      </div>
+    </section>
+
+    <!-- ============ RECHERCHE, TRI, CATÉGORIES ============ -->
+    <section class="wrap" aria-label="Recherche, tri et catégories">
+      <div class="tools">
+        <div class="field tools__search">
+          <label for="search">Recherche</label>
+          <input type="search" id="search" placeholder="Rechercher un produit…" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="sort">Trier par</label>
+          <select id="sort">
+            <option value="default">Ordre par défaut</option>
+            <option value="price-asc">Prix croissant</option>
+            <option value="price-desc">Prix décroissant</option>
+            <option value="name-asc">Nom de A à Z</option>
+          </select>
+        </div>
+      </div>
+      <nav aria-label="Catégories">
+        <ul class="cats" id="cats">
+          <li><button type="button" class="chip" data-category="all" aria-pressed="true">Tous les produits</button></li>
+        </ul>
+      </nav>
+      <p class="count" id="count" role="status" aria-live="polite"></p>
+    </section>
+
+    <!-- ============ CATALOGUE ============ -->
+    <section class="section" aria-label="Catalogue">
+      <div class="wrap">
+        <p class="empty" id="empty-none">Aucun produit disponible pour le moment. Revenez bientôt découvrir notre sélection.</p>
+        <div class="empty" id="empty-filter" hidden>
+          <p>Aucun produit ne correspond à votre recherche.</p>
+          <button type="button" class="btn" id="reset-filters">Réinitialiser les filtres</button>
+        </div>
+        <ul class="grid" id="catalog-grid" data-catalog-grid></ul>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FICHE PRODUIT (modale) ============ -->
+  <dialog class="modal" id="product-modal" aria-labelledby="modal-title">
+    <button type="button" class="icon-btn modal__close" id="modal-close" aria-label="Fermer la fenêtre">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div class="modal__body">
+      <div class="modal__media"><img id="modal-image" src="" alt="" hidden></div>
+      <div class="modal__info">
+        <h2 id="modal-title"></h2>
+        <p class="modal__price" id="modal-price" hidden></p>
+        <p id="modal-description" hidden></p>
+        <dl class="modal__meta">
+          <div id="modal-category-row" hidden class="meta-row"><dt>Catégorie</dt><dd id="modal-category"></dd></div>
+          <div id="modal-availability-row" hidden class="meta-row"><dt>Disponibilité</dt><dd id="modal-availability"></dd></div>
+        </dl>
+        <fieldset class="options" id="modal-sizes" hidden><legend>Taille</legend><div class="options__list" id="modal-sizes-list"></div></fieldset>
+        <fieldset class="options" id="modal-variants" hidden><legend>Variante</legend><div class="options__list" id="modal-variants-list"></div></fieldset>
+        <p class="modal__msg" id="modal-msg" role="alert"></p>
+        <div class="modal__actions">
+          <button type="button" class="btn btn--primary" id="modal-cart">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 4h2.2l2.1 10.2a1.5 1.5 0 0 0 1.47 1.2h8.2a1.5 1.5 0 0 0 1.46-1.14L20 8H6.2"/><circle cx="9.5" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/></svg>
+            Panier
+          </button>
+          <button type="button" class="btn" id="modal-wa">
+            <svg viewBox="0 0 24 24" fill="#1faa59" aria-hidden="true" focusable="false"><path d="M12.04 2a9.9 9.9 0 0 0-8.5 14.95L2 22l5.2-1.36A9.9 9.9 0 1 0 12.04 2Zm0 1.8a8.1 8.1 0 0 1 0 16.2 8.1 8.1 0 0 1-4.13-1.13l-.3-.18-3.08.8.82-3-.2-.31A8.1 8.1 0 0 1 12.04 3.8Z"/></svg>
+            WhatsApp
+          </button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <p class="notice" id="notice" role="status" hidden></p>
+
+  <!-- ============ PIED DE PAGE (identique à index.html) ============ -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <span class="logo">Huize Shop</span>
+      <p class="tagline">Le choix, la qualité et le style au même endroit.</p>
+      <p class="reassure">Votre satisfaction est notre priorité. Nous sommes là pour vous aider à trouver les produits qui vous conviennent.</p>
+    </div>
+  </footer>
+
+  <!-- Modèle de carte (même structure que dans index.html) -->
+  <template id="tpl-card">
+    <li class="card" data-product-id="">
+      <button type="button" class="card__main" data-action="open-product">
+        <div class="card__media"><img data-field="image" src="" alt="" loading="lazy" width="400" height="400"></div>
+        <p class="card__name" data-field="name"></p>
+      </button>
+      <div class="card__foot">
+        <p class="card__price" data-field="price"></p>
+        <div class="card__actions">
+          <button type="button" class="icon-btn" data-action="add-to-cart" data-tooltip="Ajouter au panier">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 4h2.2l2.1 10.2a1.5 1.5 0 0 0 1.47 1.2h8.2a1.5 1.5 0 0 0 1.46-1.14L20 8H6.2"/><circle cx="9.5" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/></svg>
+          </button>
+          <button type="button" class="icon-btn icon-btn--wa" data-action="order-whatsapp" data-tooltip="Commander sur WhatsApp">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.04 2a9.9 9.9 0 0 0-8.5 14.95L2 22l5.2-1.36A9.9 9.9 0 1 0 12.04 2Zm0 1.8a8.1 8.1 0 0 1 0 16.2 8.1 8.1 0 0 1-4.13-1.13l-.3-.18-3.08.8.82-3-.2-.31A8.1 8.1 0 0 1 12.04 3.8Zm-3.5 4.1c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5s1.07 2.9 1.22 3.1c.15.2 2.1 3.2 5.08 4.48 2.5 1.07 3 .86 3.54.8.54-.05 1.74-.71 1.98-1.4.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35-.3-.15-1.74-.86-2.01-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57Z"/></svg>
+          </button>
+        </div>
+      </div>
+    </li>
+  </template>
+
+  <!--
+    SCRIPT DE LA PAGE (recherche, tri, catégories, modale) — aucune donnée produit n'est incluse.
+
+    POINTS DE RACCORDEMENT (à brancher depuis un futur app.js chargé AVANT ce script, ou après) :
+    1. Données : window.HUIZE_PRODUCTS = [{ id, name, price, image, description, category,
+         available (true/false ou texte), sizes: [..], variants: [..] }]
+       ou, si chargées plus tard : window.HuizeBoutique.setProducts(liste).
+    2. Panier        : écouter l'événement document « huize:add-to-cart » (detail : product, size, variant)
+                       puis appeler event.preventDefault() pour confirmer que l'action est prise en charge.
+    3. WhatsApp      : même principe avec « huize:order-whatsapp » et « huize:contact-whatsapp ».
+                       Le numéro de la boutique n'est PAS défini ici : il reste à configurer.
+    4. Panier (nombre): window.HuizeBoutique.setCartCount(n).
+    5. Ouverture du panier : événement « huize:open-cart » (même principe).
+  -->
+  <script>
+  (function () {
+    'use strict';
+    var $ = function (s) { return document.querySelector(s); };
+    var state = { products: [], q: '', cat: 'all', sort: 'default' };
+    var current = null, pending = null, lastTrigger = null, noticeTimer = null;
+
+    var grid = $('#catalog-grid'), cats = $('#cats'), count = $('#count');
+    var modal = $('#product-modal'), msg = $('#modal-msg');
+
+    function norm(s) { return String(s == null ? '' : s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim(); }
+    function fmt(n) { return new Intl.NumberFormat('fr-FR').format(n) + ' FCFA'; }
+    function hasPrice(p) { return typeof p.price === 'number' && isFinite(p.price); }
+    function list(a) { return Array.isArray(a) ? a.filter(function (v) { return v != null && String(v).trim() !== ''; }) : []; }
+    function unavailable(p) { return p.available === false; }
+
+    function notify(text) {
+      var n = $('#notice'); n.textContent = text; n.hidden = false;
+      clearTimeout(noticeTimer); noticeTimer = setTimeout(function () { n.hidden = true; }, 4500);
+    }
+
+    /* Renvoie true si un écouteur externe a pris l'action en charge (preventDefault). */
+    function emit(name, detail) {
+      var ev = new CustomEvent('huize:' + name, { cancelable: true, detail: detail });
+      return document.dispatchEvent(ev) === false;
+    }
+    var LABELS = {
+      'add-to-cart': 'Le panier n\u2019est pas encore raccordé : aucun produit n\u2019a été ajouté.',
+      'order-whatsapp': 'WhatsApp n\u2019est pas encore configuré : aucune commande n\u2019a été préparée.',
+      'contact-whatsapp': 'WhatsApp n\u2019est pas encore configuré.',
+      'open-cart': 'Le panier n\u2019est pas encore raccordé.'
+    };
+    function run(action, detail) { if (!emit(action, detail)) notify(LABELS[action]); }
+
+    /* ---------- Données ---------- */
+    function setProducts(items) {
+      state.products = (Array.isArray(items) ? items : []).filter(function (p) {
+        return p && p.id != null && typeof p.name === 'string' && p.name.trim() !== '';
+      }).map(function (p, i) { p._i = i; return p; });
+      var known = {};
+      state.products.forEach(function (p) { if (p.category) known[p.category] = 1; });
+      if (state.cat !== 'all' && !known[state.cat]) state.cat = 'all';
+      renderCats(Object.keys(known));
+      render();
+    }
+
+    function renderCats(names) {
+      while (cats.children.length > 1) cats.removeChild(cats.lastChild);
+      names.forEach(function (c) {
+        var li = document.createElement('li'), b = document.createElement('button');
+        b.type = 'button'; b.className = 'chip'; b.textContent = c; b.dataset.category = c;
+        li.appendChild(b); cats.appendChild(li);
+      });
+      syncChips();
+    }
+    function syncChips() {
+      cats.querySelectorAll('.chip').forEach(function (b) {
+        b.setAttribute('aria-pressed', String(b.dataset.category === state.cat));
+      });
+    }
+
+    /* ---------- Affichage du catalogue ---------- */
+    function visible() {
+      var q = norm(state.q);
+      var out = state.products.filter(function (p) {
+        return (state.cat === 'all' || p.category === state.cat) && (!q || norm(p.name).indexOf(q) !== -1);
+      });
+      var s = state.sort;
+      if (s === 'price-asc' || s === 'price-desc') {
+        var dir = s === 'price-asc' ? 1 : -1;
+        out.sort(function (a, b) {
+          if (!hasPrice(a) && !hasPrice(b)) return a._i - b._i;
+          if (!hasPrice(a)) return 1; if (!hasPrice(b)) return -1;
+          return (a.price - b.price) * dir || a._i - b._i;
+        });
+      } else if (s === 'name-asc') {
+        out.sort(function (a, b) { return a.name.localeCompare(b.name, 'fr', { sensitivity: 'base' }) || a._i - b._i; });
+      } else { out.sort(function (a, b) { return a._i - b._i; }); }
+      return out;
+    }
+
+    function render() {
+      var items = visible(), none = !state.products.length;
+      grid.textContent = '';
+      $('#empty-none').hidden = !none;
+      $('#empty-filter').hidden = none || items.length > 0;
+      count.textContent = none ? '' : items.length + (items.length > 1 ? ' produits' : ' produit');
+      var tpl = $('#tpl-card');
+      items.forEach(function (p) {
+        var li = tpl.content.firstElementChild.cloneNode(true);
+        li.dataset.productId = p.id;
+        li.querySelector('[data-field="name"]').textContent = p.name;
+        var price = li.querySelector('[data-field="price"]');
+        if (hasPrice(p)) price.textContent = fmt(p.price); else price.remove();
+        var img = li.querySelector('img');
+        if (p.image) { img.src = p.image; img.alt = p.name; } else { img.remove(); }
+        li.querySelector('.card__main').setAttribute('aria-label', 'Voir les détails de ' + p.name);
+        var cart = li.querySelector('[data-action="add-to-cart"]'), wa = li.querySelector('[data-action="order-whatsapp"]');
+        cart.setAttribute('aria-label', 'Ajouter ' + p.name + ' au panier');
+        wa.setAttribute('aria-label', 'Commander ' + p.name + ' sur WhatsApp');
+        if (unavailable(p)) { cart.disabled = true; wa.disabled = true; }
+        grid.appendChild(li);
+      });
+    }
+
+    /* ---------- Modale ---------- */
+    function buildOptions(box, list_, values, name) {
+      list_.textContent = '';
+      box.hidden = values.length === 0;
+      values.forEach(function (v) {
+        var l = document.createElement('label'), i = document.createElement('input'), s = document.createElement('span');
+        l.className = 'opt'; i.type = 'radio'; i.name = name; i.value = String(v); s.textContent = String(v);
+        i.addEventListener('change', function () { msg.textContent = ''; });
+        l.appendChild(i); l.appendChild(s); list_.appendChild(l);
+      });
+    }
+    function chosen(name) { var r = modal.querySelector('input[name="' + name + '"]:checked'); return r ? r.value : null; }
+    function setRow(row, valEl, text) { row.hidden = !text; valEl.textContent = text || ''; }
+
+    function openProduct(p, trigger, action) {
+      current = p; pending = action || null; lastTrigger = trigger || null; msg.textContent = '';
+      $('#modal-title').textContent = p.name;
+      var pr = $('#modal-price'); pr.hidden = !hasPrice(p); pr.textContent = hasPrice(p) ? fmt(p.price) : '';
+      var d = $('#modal-description'); d.hidden = !p.description; d.textContent = p.description || '';
+      var im = $('#modal-image');
+      if (p.image) { im.src = p.image; im.alt = p.name; im.hidden = false; } else { im.hidden = true; im.removeAttribute('src'); im.alt = ''; }
+      setRow($('#modal-category-row'), $('#modal-category'), p.category);
+      var av = typeof p.available === 'string' ? p.available : (p.available === true ? 'Disponible' : (p.available === false ? 'Indisponible' : ''));
+      setRow($('#modal-availability-row'), $('#modal-availability'), av);
+      buildOptions($('#modal-sizes'), $('#modal-sizes-list'), list(p.sizes), 'size');
+      buildOptions($('#modal-variants'), $('#modal-variants-list'), list(p.variants), 'variant');
+      $('#modal-cart').disabled = $('#modal-wa').disabled = unavailable(p);
+      if (pending) {
+        msg.textContent = (list(p.sizes).length ? 'Choisissez une taille' : 'Choisissez une variante') +
+          (list(p.sizes).length && list(p.variants).length ? ' et une variante' : '') + ' avant de continuer.';
+      }
+      modal.showModal();
+      $('#modal-close').focus();
+    }
+
+    function submit(action) {
+      var p = current; if (!p) return;
+      var size = chosen('size'), variant = chosen('variant');
+      if (list(p.sizes).length && !size) { msg.textContent = 'Veuillez choisir une taille.'; modal.querySelector('input[name="size"]').focus(); return; }
+      if (list(p.variants).length && !variant) { msg.textContent = 'Veuillez choisir une variante.'; modal.querySelector('input[name="variant"]').focus(); return; }
+      msg.textContent = '';
+      run(action, { product: p, size: size, variant: variant });
+    }
+
+    /* ---------- Événements ---------- */
+    $('#search').addEventListener('input', function (e) { state.q = e.target.value; render(); });
+    $('#sort').addEventListener('change', function (e) { state.sort = e.target.value; render(); });
+    cats.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-category]'); if (!b) return;
+      state.cat = b.dataset.category; syncChips(); render();
+    });
+    $('#reset-filters').addEventListener('click', function () {
+      state.q = ''; state.cat = 'all'; state.sort = 'default';
+      $('#search').value = ''; $('#sort').value = 'default'; syncChips(); render(); $('#search').focus();
+    });
+
+    grid.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-action]'); if (!btn) return;
+      var li = btn.closest('[data-product-id]');
+      var p = state.products.filter(function (x) { return String(x.id) === li.dataset.productId; })[0];
+      if (!p) return;
+      var act = btn.dataset.action;
+      if (act === 'open-product') { openProduct(p, btn, null); return; }
+      if (list(p.sizes).length || list(p.variants).length) { openProduct(p, btn, act); return; } /* choix requis avant l'action */
+      run(act, { product: p, size: null, variant: null });
+    });
+
+    $('#modal-cart').addEventListener('click', function () { submit('add-to-cart'); });
+    $('#modal-wa').addEventListener('click', function () { submit('order-whatsapp'); });
+    $('#modal-close').addEventListener('click', function () { modal.close(); });
+    modal.addEventListener('click', function (e) { if (e.target === modal) modal.close(); });
+    modal.addEventListener('close', function () { current = null; if (lastTrigger && document.contains(lastTrigger)) lastTrigger.focus(); });
+
+    $('#header-whatsapp').addEventListener('click', function () { run('contact-whatsapp', {}); });
+    $('#header-cart').addEventListener('click', function () { run('open-cart', {}); });
+
+    /* ---------- API publique ---------- */
+    window.HuizeBoutique = {
+      setProducts: setProducts,
+      setCartCount: function (n) {
+        var el = $('[data-cart-count]'); n = Number(n) || 0;
+        el.textContent = n; el.hidden = n < 1;
+      }
+    };
+    document.addEventListener('huize:products-ready', function (e) { setProducts(e.detail); });
+
+    setProducts(window.HUIZE_PRODUCTS);
+  })();
+  </script>
+</body>
+</html>

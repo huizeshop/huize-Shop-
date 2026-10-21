@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Huize Shop — Votre boutique en ligne</title>
+  <meta name="description" content="Huize Shop, boutique en ligne généraliste : vêtements, chaussures, accessoires, électronique et articles pour la maison. Prix en FCFA, commande via WhatsApp.">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="catalogue.css">
+  <link rel="stylesheet" href="accueil.css">
+</head>
+
+<body>
+  <a class="skip" href="#contenu">Aller au contenu</a>
+
+  <!-- ============ SECTION A — EN-TÊTE ============ -->
+  <header class="site-header">
+    <div class="wrap">
+      <a class="logo" href="index.html" aria-label="Huize Shop, retour à l'accueil">Huize Shop</a>
+
+      <nav class="header-actions" aria-label="Navigation principale">
+        <!-- INTÉGRATION : destination de la page boutique à définir (data-destination="shop") -->
+        <button type="button" class="btn" data-action="go-shop" data-destination="shop">Boutique</button>
+
+        <!-- INTÉGRATION : numéro WhatsApp de la boutique à fournir via la future configuration -->
+        <button type="button" class="icon-btn icon-btn--wa" id="header-whatsapp" data-action="contact-whatsapp"
+                aria-label="Contacter la boutique sur WhatsApp" data-tooltip="WhatsApp">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.04 2a9.9 9.9 0 0 0-8.5 14.95L2 22l5.2-1.36A9.9 9.9 0 1 0 12.04 2Zm0 1.8a8.1 8.1 0 0 1 0 16.2 8.1 8.1 0 0 1-4.13-1.13l-.3-.18-3.08.8.82-3-.2-.31A8.1 8.1 0 0 1 12.04 3.8Zm-3.5 4.1c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5s1.07 2.9 1.22 3.1c.15.2 2.1 3.2 5.08 4.48 2.5 1.07 3 .86 3.54.8.54-.05 1.74-.71 1.98-1.4.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35-.3-.15-1.74-.86-2.01-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57Z"/></svg>
+        </button>
+
+        <!-- INTÉGRATION : lien vers le panier ; le compteur sera alimenté par app.js -->
+        <button type="button" class="icon-btn" id="header-cart" data-action="open-cart"
+                aria-label="Voir le panier" data-tooltip="Panier">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 4h2.2l2.1 10.2a1.5 1.5 0 0 0 1.47 1.2h8.2a1.5 1.5 0 0 0 1.46-1.14L20 8H6.2"/><circle cx="9.5" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/></svg>
+          <span class="cart-count" data-cart-count hidden>0</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenu">
+
+    <!-- ============ SECTION B — INTRODUCTION ============ -->
+    <section class="intro" aria-labelledby="intro-title">
+      <div class="wrap">
+        <h1 id="intro-title">Bienvenue chez Huize Shop</h1>
+        <p>Découvrez des produits qui répondent à vos besoins, au même endroit.</p>
+        <!-- INTÉGRATION : destination de la boutique à définir -->
+        <button type="button" class="btn btn--primary" data-action="go-shop" data-destination="shop">Voir la boutique</button>
+      </div>
+    </section>
+
+    <!-- ============ SECTION C — PRODUITS EN VEDETTE ============ -->
+    <section class="section" aria-labelledby="featured-title">
+      <div class="wrap">
+        <h2 id="featured-title">Nos produits en vedette</h2>
+
+        <!-- INTÉGRATION : app.js remplit [data-featured-track] à partir du catalogue centralisé,
+             lance le défilement toutes les 3 s (si plusieurs produits), le met en pause à l'interaction
+             et ne l'active pas si prefers-reduced-motion est activé. -->
+        <div class="carousel" id="featured-carousel" data-featured role="region"
+             aria-roledescription="carrousel" aria-label="Produits en vedette"
+             data-autoplay-delay="3000">
+          <p class="empty" data-featured-empty>Les produits en vedette apparaîtront ici.</p>
+          <div class="carousel__viewport" hidden data-featured-viewport>
+            <ul class="carousel__track" data-featured-track tabindex="0" aria-live="off"
+                aria-label="Liste des produits en vedette"></ul>
+          </div>
+          <button type="button" class="icon-btn carousel__toggle" data-action="toggle-carousel" hidden
+                  aria-label="Mettre le défilement en pause" data-label-pause="Mettre le défilement en pause" data-label-play="Reprendre le défilement">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5v14M15 5v14"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION D — APERÇU DU CATALOGUE ============ -->
+    <section class="section" aria-labelledby="catalog-title">
+      <div class="wrap">
+        <h2 id="catalog-title">Découvrez nos produits</h2>
+
+        <!-- INTÉGRATION : app.js remplit [data-catalog-grid] à partir de la même source de données -->
+        <p class="empty" data-catalog-empty>Les produits seront affichés ici.</p>
+        <ul class="grid" id="catalog-grid" data-catalog-grid></ul>
+
+        <div class="more">
+          <!-- INTÉGRATION : destination de la page catalogue complète à définir -->
+          <button type="button" class="btn" data-action="go-shop" data-destination="shop">Voir toute la boutique</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ DÉTAILS PRODUIT (fenêtre modale) ============
+       INTÉGRATION : app.js appelle showModal(), place le focus sur le bouton de fermeture,
+       le rend au déclencheur à la fermeture. <dialog> gère nativement la touche Échap. -->
+  <dialog class="modal" id="product-modal" data-product-modal aria-labelledby="modal-title">
+    <button type="button" class="icon-btn modal__close" data-action="close-modal" aria-label="Fermer la fenêtre">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div class="modal__body">
+      <div class="modal__media"><img data-modal-image src="" alt="" hidden></div>
+      <div class="modal__info">
+        <h2 id="modal-title" data-modal-name></h2>
+        <p class="modal__price" data-modal-price></p>
+        <p data-modal-description></p>
+        <dl class="modal__meta">
+          <div hidden data-modal-category-row class="meta-row"><dt>Catégorie</dt><dd data-modal-category></dd></div>
+          <div hidden data-modal-availability-row class="meta-row"><dt>Disponibilité</dt><dd data-modal-availability></dd></div>
+        </dl>
+        <!-- Affichés uniquement si le produit possède des tailles / variantes -->
+        <fieldset class="options" hidden data-modal-sizes>
+          <legend>Taille</legend>
+          <div class="options__list" data-modal-sizes-list></div>
+        </fieldset>
+        <fieldset class="options" hidden data-modal-variants>
+          <legend>Variante</legend>
+          <div class="options__list" data-modal-variants-list></div>
+        </fieldset>
+        <div class="modal__actions">
+          <button type="button" class="btn btn--primary" data-action="add-to-cart" data-modal-cart>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 4h2.2l2.1 10.2a1.5 1.5 0 0 0 1.47 1.2h8.2a1.5 1.5 0 0 0 1.46-1.14L20 8H6.2"/><circle cx="9.5" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/></svg>
+            Panier
+          </button>
+          <button type="button" class="btn" data-action="order-whatsapp" data-modal-whatsapp>
+            <svg viewBox="0 0 24 24" fill="#1faa59" aria-hidden="true" focusable="false"><path d="M12.04 2a9.9 9.9 0 0 0-8.5 14.95L2 22l5.2-1.36A9.9 9.9 0 1 0 12.04 2Zm0 1.8a8.1 8.1 0 0 1 0 16.2 8.1 8.1 0 0 1-4.13-1.13l-.3-.18-3.08.8.82-3-.2-.31A8.1 8.1 0 0 1 12.04 3.8Z"/></svg>
+            WhatsApp
+          </button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ============ SECTION E — PIED DE PAGE ============ -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <span class="logo">Huize Shop</span>
+      <p class="tagline">Le choix, la qualité et le style au même endroit.</p>
+      <p class="reassure">Votre satisfaction est notre priorité. Nous sommes là pour vous aider à trouver les produits qui vous conviennent.</p>
+    </div>
+  </footer>
+
+  <!-- ============ MODÈLES (templates) : un seul modèle par type, clonés par app.js ============ -->
+  <template id="tpl-featured">
+    <li class="carousel__slide" data-product-id="">
+      <a class="featured" data-action="open-product" data-featured-link>
+        <img data-field="image" src="" alt="" loading="lazy" width="640" height="480">
+        <span class="featured__name" data-field="name"></span>
+      </a>
+    </li>
+  </template>
+
+  <template id="tpl-card">
+    <li class="card" data-product-id="">
+      <!-- Zone principale : ouvre la fenêtre de détails -->
+      <button type="button" class="card__main" data-action="open-product">
+        <div class="card__media"><img data-field="image" src="" alt="" loading="lazy" width="400" height="400"></div>
+        <p class="card__name" data-field="name"></p>
+      </button>
+      <!-- Actions indépendantes : ne doivent pas ouvrir la fenêtre (app.js : stopPropagation) -->
+      <div class="card__foot">
+        <p class="card__price" data-field="price"></p>
+        <div class="card__actions">
+          <button type="button" class="icon-btn" data-action="add-to-cart" data-field="cart-label" data-tooltip="Ajouter au panier">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 4h2.2l2.1 10.2a1.5 1.5 0 0 0 1.47 1.2h8.2a1.5 1.5 0 0 0 1.46-1.14L20 8H6.2"/><circle cx="9.5" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/></svg>
+          </button>
+          <button type="button" class="icon-btn icon-btn--wa" data-action="order-whatsapp" data-field="wa-label" data-tooltip="Commander sur WhatsApp">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.04 2a9.9 9.9 0 0 0-8.5 14.95L2 22l5.2-1.36A9.9 9.9 0 1 0 12.04 2Zm0 1.8a8.1 8.1 0 0 1 0 16.2 8.1 8.1 0 0 1-4.13-1.13l-.3-.18-3.08.8.82-3-.2-.31A8.1 8.1 0 0 1 12.04 3.8Zm-3.5 4.1c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5s1.07 2.9 1.22 3.1c.15.2 2.1 3.2 5.08 4.48 2.5 1.07 3 .86 3.54.8.54-.05 1.74-.71 1.98-1.4.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35-.3-.15-1.74-.86-2.01-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57Z"/></svg>
+          </button>
+        </div>
+      </div>
+    </li>
+  </template>
+
+  <!-- INTÉGRATION : app.js sera chargé ici une fois créé.
+       <script src="app.js" defer></script> -->
+</body>
+</html>

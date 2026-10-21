@@ -1,0 +1,269 @@
+/* Huize Shop — accueil.css : styles propres à la page d'accueil (index.html)
+   Chargé après style.css. */
+
+.cart-count[hidden] {
+  display: none;
+}
+
+.intro {
+  padding: 48px 0 40px;
+  text-align: center;
+}
+
+.intro h1 {
+  font-size: clamp(1.75rem,5vw,2.75rem);
+  line-height: 1.15;
+  letter-spacing: -.02em;
+}
+
+.intro p {
+  margin: 12px auto 24px;
+  max-width: 46ch;
+  color: var(--muted);
+}
+
+.section {
+  padding: 32px 0;
+}
+
+.section h2 {
+  font-size: 1.35rem;
+  letter-spacing: -.01em;
+  margin-bottom: 20px;
+}
+
+.empty {
+  color: var(--muted);
+  padding: 24px;
+  text-align: center;
+  background: var(--soft);
+  border-radius: var(--radius);
+}
+
+.empty[hidden] {
+  display: none;
+}
+
+.carousel {
+  position: relative;
+}
+
+.carousel__viewport {
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+
+.carousel__track {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  scroll-snap-type: x mandatory;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+.carousel__track::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel__slide {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+}
+
+.featured {
+  display: block;
+  position: relative;
+  background: var(--soft);
+}
+
+.featured img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.featured__name {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px 14px;
+  background: rgba(255,255,255,.92);
+  font-weight: 600;
+}
+
+.carousel__toggle {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 36px;
+  height: 36px;
+  background: rgba(255,255,255,.92);
+}
+
+@media (min-width: 720px) {
+  .carousel__slide {
+    flex-basis: 50%;
+  }
+  .featured img {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (min-width: 1000px) {
+  .carousel__slide {
+    flex-basis: 33.3333%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel__track {
+    scroll-behavior: auto;
+  }
+}
+
+.card__main {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  text-align: left;
+}
+
+.card__media {
+  aspect-ratio: 1 / 1;
+  background: var(--soft);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card__name {
+  margin-top: 8px;
+  font-size: .95rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.card__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  margin-top: auto;
+  padding-top: 2px;
+}
+
+.card__price {
+  font-size: .95rem;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.card__actions {
+  display: flex;
+  margin-right: -8px;
+}
+
+.more {
+  text-align: center;
+  margin-top: 32px;
+}
+
+.modal__close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  background: rgba(255,255,255,.92);
+}
+
+.modal__body {
+  display: grid;
+  gap: 16px;
+  padding: 16px;
+}
+
+@media (min-width: 720px) {
+  .modal__body {
+    grid-template-columns: 1fr 1fr;
+    padding: 24px;
+  }
+}
+
+.modal__media {
+  aspect-ratio: 1 / 1;
+  background: var(--soft);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.modal__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal__info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modal__info h2 {
+  font-size: 1.25rem;
+  padding-right: 40px;
+}
+
+.modal__price {
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.modal__meta {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 12px;
+  margin: 0;
+  font-size: .9rem;
+}
+
+.modal__meta dt {
+  color: var(--muted);
+}
+
+.modal__meta dd {
+  margin: 0;
+}
+
+.options__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.modal__actions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.modal__actions .btn {
+  flex: 1;
+  gap: 8px;
+}
+
+.modal__actions svg {
+  width: 18px;
+  height: 18px;
+}

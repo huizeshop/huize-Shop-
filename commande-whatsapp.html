@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact et commande WhatsApp — Huize Shop</title>
+  <meta name="description" content="Posez vos questions ou poursuivez votre commande Huize Shop via WhatsApp. Aucun paiement en ligne : la commande est confirmée avec la boutique.">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="commande-whatsapp.css">
+</head>
+
+<body>
+  <a class="skip" href="#contenu">Aller au contenu</a>
+
+  <!-- ============ EN-TÊTE (identique aux autres pages) ============ -->
+  <header class="site-header">
+    <div class="wrap">
+      <a class="logo" href="index.html" aria-label="Huize Shop, retour à l'accueil">Huize Shop</a>
+      <nav class="header-actions" aria-label="Navigation principale">
+        <a class="btn" href="boutique.html">Boutique</a>
+        <button type="button" class="icon-btn icon-btn--wa" id="header-whatsapp"
+                aria-label="Contacter la boutique sur WhatsApp" data-tooltip="WhatsApp">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.04 2a9.9 9.9 0 0 0-8.5 14.95L2 22l5.2-1.36A9.9 9.9 0 1 0 12.04 2Zm0 1.8a8.1 8.1 0 0 1 0 16.2 8.1 8.1 0 0 1-4.13-1.13l-.3-.18-3.08.8.82-3-.2-.31A8.1 8.1 0 0 1 12.04 3.8Zm-3.5 4.1c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5s1.07 2.9 1.22 3.1c.15.2 2.1 3.2 5.08 4.48 2.5 1.07 3 .86 3.54.8.54-.05 1.74-.71 1.98-1.4.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35-.3-.15-1.74-.86-2.01-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57Z"/></svg>
+        </button>
+        <a class="icon-btn" href="panier.html" id="header-cart" aria-label="Voir le panier" data-tooltip="Panier">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 4h2.2l2.1 10.2a1.5 1.5 0 0 0 1.47 1.2h8.2a1.5 1.5 0 0 0 1.46-1.14L20 8H6.2"/><circle cx="9.5" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/></svg>
+          <span class="cart-count" data-cart-count hidden>0</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenu" class="wrap">
+    <section class="intro" aria-labelledby="intro-title">
+      <h1 id="intro-title">Une question ? Une commande ? Écrivez-nous sur WhatsApp</h1>
+      <p>Nous sommes là pour vous aider à trouver les produits qui vous conviennent.</p>
+    </section>
+
+    <p class="notice">Le paiement en ligne n’est pas disponible. Votre commande n’est pas validée automatiquement : après l’envoi de votre message sur WhatsApp, la boutique la confirmera avec vous.</p>
+
+    <div class="cols">
+      <!-- ============ QUESTIONS ET RENSEIGNEMENTS ============ -->
+      <section class="panel" aria-labelledby="ask-title">
+        <h2 id="ask-title">Questions et renseignements</h2>
+        <p>Prix, disponibilité, tailles, variantes… Modifiez le message si besoin, puis envoyez-le vous-même sur WhatsApp.</p>
+        <div class="field">
+          <label for="product-name">Produit concerné (facultatif)</label>
+          <input type="text" id="product-name" autocomplete="off">
+        </div>
+        <ul class="chips" aria-label="Ajouter une question au message">
+          <li><button type="button" class="chip" data-topic="Quel est le prix de ce produit ?">Prix</button></li>
+          <li><button type="button" class="chip" data-topic="Ce produit est-il disponible ?">Disponibilité</button></li>
+          <li><button type="button" class="chip" data-topic="Quelles tailles sont disponibles ?">Tailles</button></li>
+          <li><button type="button" class="chip" data-topic="Quelles variantes (couleurs, modèles) sont disponibles ?">Variantes</button></li>
+        </ul>
+        <div class="field">
+          <label for="ask-message">Votre message</label>
+          <textarea id="ask-message">Bonjour Huize Shop, j’aimerais obtenir des renseignements sur vos produits. Pouvez-vous m’aider, s’il vous plaît ?</textarea>
+        </div>
+        <button type="button" class="btn btn--wa" id="ask-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12.04 2a9.9 9.9 0 0 0-8.5 14.95L2 22l5.2-1.36A9.9 9.9 0 1 0 12.04 2Zm0 1.8a8.1 8.1 0 0 1 0 16.2 8.1 8.1 0 0 1-4.13-1.13l-.3-.18-3.08.8.82-3-.2-.31A8.1 8.1 0 0 1 12.04 3.8Z"/></svg>
+          Écrire sur WhatsApp
+        </button>
+        <p class="status" id="ask-status" role="status"></p>
+      </section>
+
+      <!-- ============ COMMANDE ============ -->
+      <section class="panel" aria-labelledby="order-title">
+        <h2 id="order-title">Poursuivre ma commande</h2>
+        <div id="order-empty" class="empty" hidden>
+          <p>Votre panier est vide. Choisissez des produits dans la boutique pour préparer une commande.</p>
+          <a class="btn" href="boutique.html">Découvrir la boutique</a>
+        </div>
+        <div id="order-full" hidden>
+          <p class="tbc-note">Récapitulatif de votre panier. Les prix ne sont affichés que s’ils sont confirmés par le catalogue ; sinon, la boutique vous les confirmera.</p>
+          <ul class="items" id="items"></ul>
+          <div class="field">
+            <label for="order-message">Message de commande (modifiable)</label>
+            <textarea id="order-message"></textarea>
+          </div>
+          <button type="button" class="btn btn--wa" id="order-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12.04 2a9.9 9.9 0 0 0-8.5 14.95L2 22l5.2-1.36A9.9 9.9 0 1 0 12.04 2Zm0 1.8a8.1 8.1 0 0 1 0 16.2 8.1 8.1 0 0 1-4.13-1.13l-.3-.18-3.08.8.82-3-.2-.31A8.1 8.1 0 0 1 12.04 3.8Z"/></svg>
+            Poursuivre ma commande sur WhatsApp
+          </button>
+          <p class="status" id="order-status" role="status"></p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- ============ PIED DE PAGE (identique aux autres pages) ============ -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <span class="logo">Huize Shop</span>
+      <p class="tagline">Le choix, la qualité et le style au même endroit.</p>
+      <p class="reassure">Votre satisfaction est notre priorité. Nous sommes là pour vous aider à trouver les produits qui vous conviennent.</p>
+    </div>
+  </footer>
+
+  <!-- Configuration commune (numéro WhatsApp). Si le fichier est absent, la page affiche « non configuré ». -->
+  <script src="config.js"></script>
+
+  <script>
+  (function () {
+    'use strict';
+    var KEY = 'huize:cart', MAX_QTY = 99;
+    var $ = function (s) { return document.querySelector(s); };
+    var cart = [], orderDirty = false;
+
+    function fmt(n) { return new Intl.NumberFormat('fr-FR').format(n) + ' FCFA'; }
+    function clean(v) { return (v == null || String(v).trim() === '') ? null : String(v).trim(); }
+
+    /* Lecture du panier : même clé et même validation que panier.html */
+    function read() {
+      var raw = null, arr;
+      try { raw = window.localStorage.getItem(KEY); } catch (e) { return []; }
+      if (!raw) return [];
+      try { arr = JSON.parse(raw); } catch (e) { return []; }
+      if (!Array.isArray(arr)) return [];
+      var out = [];
+      arr.forEach(function (it) {
+        var q = Math.floor(Number(it && it.quantity));
+        if (!it || it.id == null || typeof it.name !== 'string' || !it.name.trim() || !(q >= 1)) return;
+        out.push({ id: it.id, name: it.name, quantity: Math.min(q, MAX_QTY), size: clean(it.size), variant: clean(it.variant) });
+      });
+      return out;
+    }
+
+    /* Prix : uniquement ceux du catalogue officiel (window.HUIZE_PRODUCTS) */
+    function confirmedPrice(it) {
+      var cat = Array.isArray(window.HUIZE_PRODUCTS) ? window.HUIZE_PRODUCTS : null;
+      if (!cat) return null;
+      var p = cat.filter(function (x) { return String(x.id) === String(it.id); })[0];
+      return p && typeof p.price === 'number' && isFinite(p.price) && p.available !== false ? p.price : null;
+    }
+    function opts(it) {
+      var o = []; if (it.size) o.push('Taille : ' + it.size); if (it.variant) o.push('Variante : ' + it.variant); return o;
+    }
+
+    function buildOrderMessage() {
+      var allPriced = true, total = 0, out = ['Bonjour Huize Shop, je souhaite passer une commande. Voici les articles qui m\u2019intéressent :', ''];
+      cart.forEach(function (it, i) {
+        var pr = confirmedPrice(it), o = opts(it);
+        out.push((i + 1) + '. ' + it.name + (o.length ? ' (' + o.join(', ') + ')' : '') + ' — quantité : ' + it.quantity +
+          (pr != null ? ' — ' + fmt(pr) + ' l\u2019unité' : ' — prix à confirmer'));
+        if (pr == null) allPriced = false; else total += pr * it.quantity;
+      });
+      out.push('');
+      if (allPriced && cart.length) out.push('Total estimé : ' + fmt(total));
+      out.push('Merci de confirmer leur disponibilité, le montant final et les modalités de livraison.');
+      return out.join('\n');
+    }
+
+    function setCount(n) { var el = $('[data-cart-count]'); el.textContent = n; el.hidden = n < 1; }
+
+    function renderOrder() {
+      cart = read();
+      var n = 0; cart.forEach(function (it) { n += it.quantity; });
+      setCount(n);
+      $('#order-empty').hidden = cart.length > 0;
+      $('#order-full').hidden = cart.length === 0;
+      var ul = $('#items'); ul.textContent = '';
+      cart.forEach(function (it) {
+        var li = document.createElement('li'), left = document.createElement('div'), nm = document.createElement('p'),
+            meta = document.createElement('p'), right = document.createElement('p'), pr = confirmedPrice(it), o = opts(it);
+        nm.className = 'name'; nm.textContent = it.name;
+        meta.className = 'meta'; meta.textContent = 'Quantité : ' + it.quantity + (o.length ? ' · ' + o.join(' · ') : '');
+        left.appendChild(nm); left.appendChild(meta);
+        right.className = 'price' + (pr == null ? ' tbc' : '');
+        right.textContent = pr != null ? fmt(pr * it.quantity) : 'Prix à confirmer';
+        li.appendChild(left); li.appendChild(right); ul.appendChild(li);
+      });
+      if (!orderDirty && cart.length) $('#order-message').value = buildOrderMessage();
+    }
+
+    /* WhatsApp : numéro lu uniquement dans window.HUIZE_CONFIG.whatsappNumber */
+    function waNumber() {
+      var n = window.HUIZE_CONFIG && window.HUIZE_CONFIG.whatsappNumber;
+      n = n == null ? '' : String(n).replace(/\D/g, '');
+      return n.length >= 8 ? n : '';
+    }
+    function openWhatsApp(text, statusEl) {
+      var n = waNumber();
+      if (!n) { statusEl.textContent = 'Le numéro WhatsApp de la boutique n\u2019est pas configuré (fichier config.js introuvable ou incomplet) : rien n\u2019a été ouvert.'; return; }
+      statusEl.textContent = '';
+      var w = window.open('https://wa.me/' + n + (text ? '?text=' + encodeURIComponent(text) : ''), '_blank', 'noopener');
+      if (!w) statusEl.textContent = 'Votre navigateur a bloqué l\u2019ouverture de WhatsApp. Autorisez les fenêtres pour ce site et réessayez.';
+      else statusEl.textContent = 'WhatsApp s\u2019est ouvert : vérifiez le message puis envoyez-le vous-même. La commande n\u2019est pas confirmée tant que la boutique ne vous a pas répondu.';
+    }
+
+    /* Questions */
+    document.querySelector('.chips').addEventListener('click', function (e) {
+      var b = e.target.closest('[data-topic]'); if (!b) return;
+      var t = $('#ask-message'), line = b.dataset.topic;
+      if (t.value.indexOf(line) === -1) t.value = (t.value.replace(/\s+$/, '') + '\n' + line).replace(/^\n/, '');
+      t.focus();
+    });
+    $('#ask-btn').addEventListener('click', function () {
+      var msg = $('#ask-message').value.trim(), prod = $('#product-name').value.trim(), st = $('#ask-status');
+      if (!msg) { st.textContent = 'Veuillez écrire un message avant de continuer.'; return; }
+      if (prod && msg.indexOf(prod) === -1) msg += '\nProduit concerné : ' + prod;
+      openWhatsApp(msg, st);
+    });
+
+    /* Commande */
+    $('#order-message').addEventListener('input', function () { orderDirty = true; });
+    $('#order-btn').addEventListener('click', function () {
+      var st = $('#order-status'), msg = $('#order-message').value.trim();
+      if (!cart.length) { st.textContent = 'Votre panier est vide.'; return; }
+      if (!msg) { st.textContent = 'Le message de commande est vide.'; return; }
+      openWhatsApp(msg, st);
+    });
+
+    $('#header-whatsapp').addEventListener('click', function () {
+      var st = $('#ask-status'); openWhatsApp($('#ask-message').value.trim(), st);
+      if (!waNumber()) $('#ask-btn').scrollIntoView();
+    });
+
+    window.addEventListener('storage', function (e) { if (e.key === KEY) renderOrder(); });
+    document.addEventListener('huize:products-ready', function (e) { window.HUIZE_PRODUCTS = e.detail; renderOrder(); });
+    renderOrder();
+  })();
+  </script>
+</body>
+</html>

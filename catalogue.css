@@ -1,0 +1,99 @@
+/* Huize Shop — catalogue.css : grille de produits, cartes et fenêtre de détails
+   Partagé par index.html et boutique.html. Chargé après style.css. */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 16px 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 720px) {
+  .grid {
+    grid-template-columns: repeat(3,1fr);
+    gap: 24px 16px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .grid {
+    grid-template-columns: repeat(4,1fr);
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-width: 0;
+}
+
+.modal {
+  width: min(720px,calc(100% - 24px));
+  max-height: calc(100% - 24px);
+  padding: 0;
+  border: 0;
+  border-radius: 12px;
+  background: var(--bg);
+  color: var(--text);
+  overflow: auto;
+}
+
+.modal::backdrop {
+  background: rgba(0,0,0,.5);
+}
+
+.options {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+.options legend {
+  font-size: .9rem;
+  font-weight: 600;
+  padding: 0;
+  margin-bottom: 6px;
+}
+
+.opt input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.opt span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  min-width: 44px;
+  justify-content: center;
+  padding: 0 12px;
+  border: 1px solid #bbb;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: .9rem;
+}
+
+.opt input:checked + span {
+  background: var(--text);
+  color: #fff;
+  border-color: var(--text);
+}
+
+.opt input:focus-visible + span {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+.options[hidden] {
+  display: none;
+}
+
+.meta-row {
+  display: contents;
+}

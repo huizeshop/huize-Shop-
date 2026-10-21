@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mon panier — Huize Shop</title>
+  <meta name="description" content="Vérifiez les articles de votre panier Huize Shop et envoyez votre commande via WhatsApp.">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="panier.css">
+</head>
+
+<body>
+  <a class="skip" href="#contenu">Aller au contenu</a>
+
+  <!-- ============ EN-TÊTE (identique à boutique.html) ============ -->
+  <header class="site-header">
+    <div class="wrap">
+      <a class="logo" href="index.html" aria-label="Huize Shop, retour à l'accueil">Huize Shop</a>
+      <nav class="header-actions" aria-label="Navigation principale">
+        <a class="btn" href="boutique.html">Boutique</a>
+        <button type="button" class="icon-btn icon-btn--wa" id="header-whatsapp" data-action="contact-whatsapp"
+                aria-label="Contacter la boutique sur WhatsApp" data-tooltip="WhatsApp">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.04 2a9.9 9.9 0 0 0-8.5 14.95L2 22l5.2-1.36A9.9 9.9 0 1 0 12.04 2Zm0 1.8a8.1 8.1 0 0 1 0 16.2 8.1 8.1 0 0 1-4.13-1.13l-.3-.18-3.08.8.82-3-.2-.31A8.1 8.1 0 0 1 12.04 3.8Zm-3.5 4.1c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5s1.07 2.9 1.22 3.1c.15.2 2.1 3.2 5.08 4.48 2.5 1.07 3 .86 3.54.8.54-.05 1.74-.71 1.98-1.4.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35-.3-.15-1.74-.86-2.01-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57Z"/></svg>
+        </button>
+        <a class="icon-btn" href="panier.html" id="header-cart" aria-current="page" aria-label="Panier (page actuelle)" data-tooltip="Panier">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 4h2.2l2.1 10.2a1.5 1.5 0 0 0 1.47 1.2h8.2a1.5 1.5 0 0 0 1.46-1.14L20 8H6.2"/><circle cx="9.5" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/></svg>
+          <span class="cart-count" data-cart-count hidden>0</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenu" class="wrap">
+    <h1 class="page-title">Mon panier</h1>
+    <p class="alert" id="alert" role="alert" hidden></p>
+
+    <!-- Panier vide -->
+    <section class="empty" id="empty" hidden aria-labelledby="empty-title">
+      <h2 id="empty-title">Votre panier est vide</h2>
+      <p>Ajoutez des produits depuis la boutique pour préparer votre commande.</p>
+      <a class="btn btn--primary" href="boutique.html">Découvrir la boutique</a>
+    </section>
+
+    <!-- Panier rempli -->
+    <div class="layout" id="cart-view" hidden>
+      <section aria-label="Articles du panier">
+        <ul class="lines" id="lines"></ul>
+      </section>
+
+      <aside class="summary" aria-labelledby="summary-title">
+        <h2 id="summary-title">Résumé de la commande</h2>
+        <dl>
+          <div class="row"><dt>Sous-total</dt><dd id="subtotal">—</dd></div>
+          <div class="row"><dt>Frais de livraison</dt><dd id="shipping">À confirmer</dd></div>
+          <div class="row row--total"><dt>Total estimé</dt><dd id="total">—</dd></div>
+        </dl>
+        <div class="summary__actions">
+          <button type="button" class="btn btn--wa" id="order-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12.04 2a9.9 9.9 0 0 0-8.5 14.95L2 22l5.2-1.36A9.9 9.9 0 1 0 12.04 2Zm0 1.8a8.1 8.1 0 0 1 0 16.2 8.1 8.1 0 0 1-4.13-1.13l-.3-.18-3.08.8.82-3-.2-.31A8.1 8.1 0 0 1 12.04 3.8Z"/></svg>
+            Commander via WhatsApp
+          </button>
+          <a class="btn" href="boutique.html">Continuer mes achats</a>
+        </div>
+        <p class="status" id="status" role="status"></p>
+        <p class="summary__note">Aucun paiement en ligne : vous vérifiez puis envoyez vous-même le message sur WhatsApp.</p>
+      </aside>
+    </div>
+
+    <p class="sr-only" id="live" role="status" aria-live="polite"></p>
+  </main>
+
+  <!-- ============ PIED DE PAGE (identique à boutique.html) ============ -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <span class="logo">Huize Shop</span>
+      <p class="tagline">Le choix, la qualité et le style au même endroit.</p>
+      <p class="reassure">Votre satisfaction est notre priorité. Nous sommes là pour vous aider à trouver les produits qui vous conviennent.</p>
+    </div>
+  </footer>
+
+  <!-- Modèle d'une ligne d'article -->
+  <template id="tpl-line">
+    <li class="line" data-key="">
+      <div class="line__img"><img src="" alt="" loading="lazy" width="88" height="88"></div>
+      <div class="line__info">
+        <p class="line__name"></p>
+        <p class="line__opts"></p>
+        <p class="line__unit"></p>
+        <p class="line__flag"></p>
+      </div>
+      <div class="line__qty" role="group">
+        <button type="button" class="qty-btn" data-action="dec">−</button>
+        <span class="qty-value" aria-live="polite"></span>
+        <button type="button" class="qty-btn" data-action="inc">+</button>
+      </div>
+      <div class="line__total">
+        <span class="line__sub"></span>
+        <button type="button" class="icon-btn remove-btn" data-action="remove">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-12M9 7V4h6v3"/></svg>
+        </button>
+      </div>
+    </li>
+  </template>
+
+  <!--
+    SCRIPT DU PANIER.
+
+    CONTRAT DE DONNÉES (aucun panier partagé n'existait dans boutique.html, qui n'émet que des événements) :
+    - Clé localStorage : « huize:cart » — tableau JSON de lignes :
+        { id, name, price, image, quantity, size, variant }   (size et variant : texte ou null)
+      Une ligne = un couple (id, size, variant). Le futur code qui écoute « huize:add-to-cart »
+      doit écrire dans cette même clé (ou appeler window.HuizePanier.add(...)) : une seule source de données.
+    - Prix : si window.HUIZE_PRODUCTS (catalogue central) est disponible, le prix, le nom et l'image du
+      catalogue remplacent ceux du navigateur. Sinon, le prix enregistré est utilisé et signalé « à confirmer ».
+    - Numéro WhatsApp : window.HUIZE_CONFIG.whatsappNumber (chiffres avec indicatif pays, sans « + »).
+      Il n'est défini nulle part ici ; sans lui, la commande n'est pas envoyée.
+  -->
+  <script>
+  (function () {
+    'use strict';
+    var KEY = 'huize:cart', MAX_QTY = 99;
+    var $ = function (s) { return document.querySelector(s); };
+    var lines = $('#lines'), cart = [], unreadable = 0, storageOk = true;
+
+    function fmt(n) { return new Intl.NumberFormat('fr-FR').format(n) + ' FCFA'; }
+    function key(it) { return [it.id, it.size || '', it.variant || ''].join('|'); }
+    function clean(v) { return (v == null || String(v).trim() === '') ? null : String(v).trim(); }
+
+    /* ---------- Stockage ---------- */
+    function read() {
+      var raw = null, arr = [];
+      unreadable = 0;
+      try { raw = window.localStorage.getItem(KEY); storageOk = true; }
+      catch (e) { storageOk = false; return []; }
+      if (!raw) return [];
+      try { arr = JSON.parse(raw); } catch (e) { unreadable = 1; return []; }
+      if (!Array.isArray(arr)) { unreadable = 1; return []; }
+      var out = [];
+      arr.forEach(function (it) {
+        var q = Math.floor(Number(it && it.quantity)), pr = Number(it && it.price);
+        if (!it || it.id == null || typeof it.name !== 'string' || !it.name.trim() || !(q >= 1)) { unreadable++; return; }
+        out.push({ id: it.id, name: it.name, price: isFinite(pr) && pr >= 0 ? pr : null, image: it.image || '',
+          quantity: Math.min(q, MAX_QTY), size: clean(it.size), variant: clean(it.variant) });
+      });
+      return out;
+    }
+    function write() {
+      try { window.localStorage.setItem(KEY, JSON.stringify(cart.map(function (it) {
+        return { id: it.id, name: it.name, price: it.price, image: it.image, quantity: it.quantity, size: it.size, variant: it.variant };
+      }))); return true; } catch (e) { return false; }
+    }
+
+    /* ---------- Vérification avec le catalogue officiel (si disponible) ---------- */
+    function catalog() { return Array.isArray(window.HUIZE_PRODUCTS) && window.HUIZE_PRODUCTS.length ? window.HUIZE_PRODUCTS : null; }
+    function enrich(it) {
+      var cat = catalog(), r = { price: it.price, name: it.name, image: it.image, flag: '', verified: false, blocked: false };
+      if (cat) {
+        var p = cat.filter(function (x) { return String(x.id) === String(it.id); })[0];
+        if (!p || p.available === false) { r.flag = 'Ce produit n\u2019est plus disponible.'; r.blocked = true; return r; }
+        if (typeof p.price === 'number' && isFinite(p.price)) r.price = p.price;
+        if (typeof p.name === 'string' && p.name) r.name = p.name;
+        if (p.image) r.image = p.image;
+        r.verified = true;
+      } else { r.flag = 'Prix à confirmer par la boutique.'; }
+      if (r.price == null) { r.flag = 'Prix indisponible.'; r.blocked = true; }
+      return r;
+    }
+
+    /* ---------- Affichage ---------- */
+    function alertMsg(t) { var a = $('#alert'); a.textContent = t || ''; a.hidden = !t; }
+    function setCount(n) { var el = $('[data-cart-count]'); el.textContent = n; el.hidden = n < 1; }
+
+    function render() {
+      var info = cart.map(enrich), sub = 0, count = 0, blocked = false;
+      var msgs = [];
+      if (!storageOk) msgs.push('Le stockage du navigateur est indisponible : le panier ne peut pas être lu.');
+      if (unreadable) msgs.push('Certains articles du panier n\u2019ont pas pu être lus.');
+      alertMsg(msgs.join(' '));
+
+      $('#empty').hidden = cart.length > 0;
+      $('#cart-view').hidden = cart.length === 0;
+      lines.textContent = '';
+      var tpl = $('#tpl-line');
+      cart.forEach(function (it, i) {
+        var d = info[i], li = tpl.content.firstElementChild.cloneNode(true);
+        li.dataset.key = key(it);
+        li.querySelector('.line__name').textContent = d.name;
+        var opts = [];
+        if (it.size) opts.push('Taille : ' + it.size);
+        if (it.variant) opts.push('Variante : ' + it.variant);
+        var o = li.querySelector('.line__opts'); if (opts.length) o.textContent = opts.join(' · '); else o.remove();
+        li.querySelector('.line__unit').textContent = d.price != null ? fmt(d.price) + ' l\u2019unité' : '';
+        var f = li.querySelector('.line__flag'); if (d.flag) f.textContent = d.flag; else f.remove();
+        var img = li.querySelector('img'); if (d.image) { img.src = d.image; img.alt = d.name; } else img.remove();
+        li.querySelector('.line__qty').setAttribute('aria-label', 'Quantité de ' + d.name);
+        li.querySelector('.qty-value').textContent = it.quantity;
+        var dec = li.querySelector('[data-action="dec"]'), inc = li.querySelector('[data-action="inc"]');
+        dec.setAttribute('aria-label', 'Diminuer la quantité de ' + d.name); dec.disabled = it.quantity <= 1;
+        inc.setAttribute('aria-label', 'Augmenter la quantité de ' + d.name); inc.disabled = it.quantity >= MAX_QTY;
+        li.querySelector('[data-action="remove"]').setAttribute('aria-label', 'Retirer ' + d.name + ' du panier');
+        li.querySelector('[data-action="remove"]').dataset.tooltip = 'Retirer';
+        var lineTotal = d.price != null ? d.price * it.quantity : null;
+        li.querySelector('.line__sub').textContent = lineTotal != null ? fmt(lineTotal) : '—';
+        if (d.blocked) blocked = true; else if (lineTotal != null) sub += lineTotal;
+        count += it.quantity;
+        lines.appendChild(li);
+      });
+      setCount(count);
+      $('#subtotal').textContent = cart.length ? fmt(sub) : '—';
+      $('#total').textContent = cart.length ? fmt(sub) : '—';
+      var btn = $('#order-btn');
+      btn.disabled = cart.length === 0 || blocked;
+      $('#status').textContent = blocked ? 'Retirez les articles indisponibles pour pouvoir commander.' : '';
+      return info;
+    }
+
+    function announce(t) { $('#live').textContent = t; }
+
+    /* ---------- Actions sur les lignes ---------- */
+    lines.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-action]'); if (!b) return;
+      var li = b.closest('[data-key]'), k = li.dataset.key;
+      var idx = -1; cart.forEach(function (it, i) { if (key(it) === k) idx = i; });
+      if (idx < 0) return;
+      var it = cart[idx], name = it.name, a = b.dataset.action, nextFocus;
+      if (a === 'inc' && it.quantity < MAX_QTY) it.quantity++;
+      else if (a === 'dec' && it.quantity > 1) it.quantity--;
+      else if (a === 'remove') { cart.splice(idx, 1); announce(name + ' retiré du panier.'); nextFocus = 'remove'; }
+      if (!write()) alertMsg('Impossible d\u2019enregistrer le panier dans ce navigateur.');
+      render();
+      if (nextFocus) { var first = lines.querySelector('[data-action="remove"]'); (first || $('#empty a')).focus(); }
+      else { var again = [].filter.call(lines.children, function (n) { return n.dataset.key === k; })[0];
+        if (again) { var t = again.querySelector('[data-action="' + a + '"]'); if (t && !t.disabled) t.focus(); else again.querySelector('[data-action="inc"], [data-action="dec"]:not([disabled])').focus(); } }
+    });
+
+    /* ---------- WhatsApp ---------- */
+    function waNumber() {
+      var n = window.HUIZE_CONFIG && window.HUIZE_CONFIG.whatsappNumber;
+      n = n == null ? '' : String(n).replace(/\D/g, '');
+      return n.length >= 8 ? n : '';
+    }
+    function openWhatsApp(text, statusEl) {
+      var n = waNumber();
+      if (!n) { statusEl.textContent = 'Le numéro WhatsApp de la boutique n\u2019est pas encore configuré : la commande ne peut pas être envoyée.'; return; }
+      statusEl.textContent = '';
+      var url = 'https://wa.me/' + n + (text ? '?text=' + encodeURIComponent(text) : '');
+      var w = window.open(url, '_blank', 'noopener');
+      if (!w) statusEl.textContent = 'Votre navigateur a bloqué l\u2019ouverture de WhatsApp. Autorisez les fenêtres pour ce site et réessayez.';
+    }
+
+    $('#order-btn').addEventListener('click', function () {
+      var status = $('#status'), info = render();
+      if (!cart.length) { status.textContent = 'Votre panier est vide.'; return; }
+      if (info.some(function (d) { return d.blocked; })) return;
+      var total = 0, out = ['Bonjour Huize Shop, je souhaite commander :', ''];
+      cart.forEach(function (it, i) {
+        var d = info[i], sub = d.price * it.quantity, opts = [];
+        if (it.size) opts.push('Taille : ' + it.size);
+        if (it.variant) opts.push('Variante : ' + it.variant);
+        total += sub;
+        out.push((i + 1) + '. ' + d.name + (opts.length ? ' (' + opts.join(', ') + ')' : ''));
+        out.push('   ' + it.quantity + ' × ' + fmt(d.price) + ' = ' + fmt(sub));
+      });
+      out.push('', 'Total estimé : ' + fmt(total), 'Frais de livraison : à confirmer');
+      openWhatsApp(out.join('\n'), status);
+    });
+
+    $('#header-whatsapp').addEventListener('click', function () {
+      var s = $('#alert'); var tmp = { textContent: '' };
+      openWhatsApp('', tmp); alertMsg(tmp.textContent);
+    });
+
+    /* ---------- API pour le futur code d'ajout au panier (même source de données) ---------- */
+    window.HuizePanier = {
+      read: read,
+      add: function (item) {
+        var cur = read();
+        var it = { id: item.id, name: item.name, price: item.price, image: item.image || '', quantity: Math.max(1, Math.floor(item.quantity) || 1), size: clean(item.size), variant: clean(item.variant) };
+        var found = cur.filter(function (x) { return key(x) === key(it); })[0];
+        if (found) found.quantity = Math.min(MAX_QTY, found.quantity + it.quantity); else cur.push(it);
+        cart = cur; var ok = write(); render(); return ok;
+      }
+    };
+
+    window.addEventListener('storage', function (e) { if (e.key === KEY) { cart = read(); render(); } });
+    document.addEventListener('huize:products-ready', function (e) { window.HUIZE_PRODUCTS = e.detail; render(); });
+
+    cart = read();
+    render();
+  })();
+  </script>
+</body>
+</html>

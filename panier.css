@@ -1,0 +1,227 @@
+/* Huize Shop — panier.css : styles propres à la page Panier (panier.html)
+   Chargé après style.css. */
+
+.cart-count[hidden] {
+  display: none;
+}
+
+.page-title {
+  padding: 28px 0 16px;
+  font-size: clamp(1.5rem,4.5vw,2rem);
+  letter-spacing: -.02em;
+}
+
+.layout {
+  display: grid;
+  gap: 24px;
+  padding-bottom: 32px;
+}
+
+@media (min-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr 340px;
+    align-items: start;
+  }
+  .summary {
+    position: sticky;
+    top: 76px;
+  }
+}
+
+.alert {
+  padding: 10px 14px;
+  margin-bottom: 12px;
+  border-radius: var(--radius);
+  background: #fdecea;
+  color: #8a1c14;
+  font-size: .9rem;
+}
+
+.alert[hidden] {
+  display: none;
+}
+
+.empty {
+  text-align: center;
+  padding: 40px 16px;
+  background: var(--soft);
+  border-radius: var(--radius);
+}
+
+.empty p {
+  margin-bottom: 16px;
+  color: var(--muted);
+}
+
+.empty h2 {
+  font-size: 1.15rem;
+  margin-bottom: 6px;
+}
+
+.lines {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.line {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  grid-template-areas: "img info" "qty total";
+  gap: 8px 12px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+  align-items: center;
+}
+
+@media (min-width: 640px) {
+  .line {
+    grid-template-columns: 88px 1fr auto auto;
+    grid-template-areas: "img info qty total";
+    gap: 16px;
+  }
+}
+
+.line__img {
+  grid-area: img;
+  aspect-ratio: 1 / 1;
+  background: var(--soft);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.line__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.line__info {
+  grid-area: info;
+  min-width: 0;
+}
+
+.line__name {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.line__opts, .line__unit {
+  font-size: .9rem;
+  color: var(--muted);
+}
+
+.line__flag {
+  font-size: .85rem;
+  color: #8a1c14;
+}
+
+.line__qty {
+  grid-area: qty;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.qty-btn {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #bbb;
+  border-radius: var(--radius);
+  background: var(--bg);
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.qty-btn:hover:not([disabled]) {
+  background: var(--soft);
+}
+
+.qty-btn[disabled] {
+  opacity: .4;
+  cursor: not-allowed;
+}
+
+.qty-value {
+  min-width: 32px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.line__total {
+  grid-area: total;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  font-weight: 700;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.remove-btn {
+  width: 40px;
+  height: 40px;
+}
+
+.remove-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.summary {
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.summary h2 {
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+}
+
+.summary dl {
+  margin: 0 0 16px;
+}
+
+.summary .row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 0;
+  font-size: .95rem;
+}
+
+.summary dt {
+  color: var(--muted);
+}
+
+.summary dd {
+  margin: 0;
+  font-weight: 600;
+  text-align: right;
+}
+
+.summary .row--total {
+  border-top: 1px solid var(--line);
+  margin-top: 6px;
+  padding-top: 12px;
+  font-size: 1.05rem;
+}
+
+.summary .row--total dd {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.summary__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.summary__note {
+  margin-top: 12px;
+  font-size: .85rem;
+  color: var(--muted);
+}
